@@ -40,6 +40,15 @@ Em outras palavras: a base do projeto já está montada, mas a parte mais import
 
 Você não precisa reinventar a arquitetura do projeto. O objetivo é evoluir a base existente com uma implementação clara, correta e fácil de manter.
 
+## O que esperamos de você
+Durante a entrevista, queremos que você desenvolva o raciocínio junto com a gente, explicando suas decisões técnicas ao longo do processo.
+
+O projeto será disponibilizado com antecedência para que você possa se familiarizar com o contexto, preparar o ambiente e chegar com tudo pronto para começar a codar.
+
+O uso de IA na resolução do código está liberado, não tem nenhum problema e é inclusive incentivado. Queremos ver como você utiliza IA no dia a dia e como ela se integra ao seu fluxo de trabalho.
+
+Não é obrigatório concluir todo o desafio durante a entrevista. O principal objetivo é entender como você programa no cotidiano, como estrutura demandas e como organiza seu processo de desenvolvimento.
+
 ## Regras de negócio
 A verificação de pré-execução deve simular uma análise operacional antes que uma coleta seja enviada para execução. O objetivo é impedir que uma coleta siga adiante quando houver inconsistências importantes de estado, documentação ou duplicidade.
 
@@ -228,6 +237,7 @@ Durante a avaliação, será observado:
 - cuidado com edge cases
 - legibilidade do código
 - capacidade de comunicar decisões técnicas
+- uso de IA no fluxo de desenvolvimento
 
 ## Bônus opcionais
 Os itens abaixo não são obrigatórios, mas podem enriquecer a solução:
