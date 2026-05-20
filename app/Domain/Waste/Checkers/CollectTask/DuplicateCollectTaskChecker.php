@@ -16,6 +16,7 @@ class DuplicateCollectTaskChecker implements CollectTaskCheckerInterface
         $duplicate = CollectTask::where('waste_generation_point_id', $task->waste_generation_point_id)
             ->whereDate('scheduled_to', $task->scheduled_to->toDateString())
             ->where('id', '!=', $task->id)
+            ->orderBy('scheduled_to')
             ->with('items')
             ->get()
             ->first(function (CollectTask $other) use ($wasteIds): bool {
