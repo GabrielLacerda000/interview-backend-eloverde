@@ -12,9 +12,7 @@ class CollectTaskPreExecutionAnalyzer
     /**
      * @param CollectTaskCheckerInterface[] $checkers
      */
-    public function __construct(private readonly array $checkers)
-    {
-    }
+    public function __construct(private readonly array $checkers) {}
 
     public function analyze(CollectTask $task): PreExecutionCheckResultDTO
     {
@@ -31,12 +29,12 @@ class CollectTaskPreExecutionAnalyzer
             }
         }
 
-        $blockerValues = array_map(fn (Blocker $b) => $b->value, $blockers);
+        $blockerValues = array_map(fn(Blocker $b) => $b->value, $blockers);
 
         return new PreExecutionCheckResultDTO(
             collect_task_id: $task->id,
             can_execute: empty($blockers),
-            priority: $task->is_urgent ? 'high' : 'normal',
+            priority: $task->is_urgent ? "high" : "normal",
             blockers: $blockerValues,
             suggested_action: $this->resolveSuggestedAction($blockers),
             related_collect_task_id: $relatedCollectTaskId,
@@ -49,10 +47,6 @@ class CollectTaskPreExecutionAnalyzer
      */
     private function resolveSuggestedAction(array $blockers): string
     {
-        if (empty($blockers)) {
-            return 'execute';
-        }
-
         $documentBlockers = [
             Blocker::MISSING_REQUIRED_DOCUMENTS,
             Blocker::EXPIRED_REQUIRED_DOCUMENTS,
@@ -61,23 +55,19 @@ class CollectTaskPreExecutionAnalyzer
 
         $types = array_unique($blockers, SORT_REGULAR);
 
-        if ($types === [Blocker::INVALID_STATE]) {
-            return 'fix_state';
-        }
-
-        if ($types === [Blocker::DUPLICATE_COLLECT_FOR_SAME_DAY]) {
-            return 'review_or_merge';
-        }
-
-        $nonDocumentBlockers = array_filter(
-            $types,
-            fn (Blocker $b) => !in_array($b, $documentBlockers, true)
-        );
-
-        if (empty($nonDocumentBlockers)) {
-            return 'review_documents';
-        }
-
-        return 'manual_review';
+        return match (true) {
+            empty($blockers) => "execute",
+            $types === [Blocker::INVALID_STATE] => "fix_state",
+            $types === [Blocker::DUPLICATE_COLLECT_FOR_SAME_DAY]
+                => "review_or_merge",
+            empty(
+                array_filter(
+                    $types,
+                    fn(Blocker $b) => !in_array($b, $documentBlockers, true),
+                )
+            )
+                => "review_documents",
+            default => "manual_review",
+        };
     }
 }
