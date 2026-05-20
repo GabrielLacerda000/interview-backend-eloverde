@@ -2,6 +2,8 @@
 
 namespace App\Domain\Waste\DTO\CollectTask;
 
+use Carbon\Carbon;
+
 class PreExecutionCheckResultDTO
 {
     public function __construct(
@@ -11,6 +13,7 @@ class PreExecutionCheckResultDTO
         public array $blockers,
         public string $suggested_action,
         public ?int $related_collect_task_id,
+        public Carbon $scheduled_to,
     ) {
     }
 
